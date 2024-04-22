@@ -1,4 +1,4 @@
-package io.github.almeida.renato.todolistapi.infrastructure.persistence.model;
+package io.github.almeida.renato.todolistapi.infrastructure.persistence.user;
 
 import jakarta.persistence.*;
 
@@ -14,6 +14,14 @@ public class UserModel {
     private String username;
     @Column(name = "PASSWORD", length = 200)
     private String password;
+
+    public UserModel() {
+    }
+
+    public UserModel(String username, String password) {
+        this.username = username;
+        this.password = password;
+    }
 
     public UUID getId() {
         return id;
@@ -38,4 +46,7 @@ public class UserModel {
     public void setPassword(String password) {
         this.password = password;
     }
+
+    public record UserModelDTO(String username, String password){}
+
 }

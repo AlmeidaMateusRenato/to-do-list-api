@@ -1,6 +1,6 @@
 package io.github.almeida.renato.todolistapi.infrastructure.security;
 
-import io.github.almeida.renato.todolistapi.infrastructure.persistence.model.UserModel;
+import io.github.almeida.renato.todolistapi.infrastructure.persistence.user.UserModel;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 

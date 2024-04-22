@@ -1,6 +1,6 @@
 package io.github.almeida.renato.todolistapi.infrastructure.security;
 
-import io.github.almeida.renato.todolistapi.infrastructure.persistence.model.UserDao;
+import io.github.almeida.renato.todolistapi.infrastructure.persistence.user.UserRepository;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -9,9 +9,9 @@ import org.springframework.stereotype.Service;
 @Service("userDetailService")
 public class AuthService implements UserDetailsService {
 
-    private final UserDao dao;
+    private final UserRepository dao;
 
-    public AuthService(UserDao dao) {
+    public AuthService(UserRepository dao) {
         this.dao = dao;
     }
 
