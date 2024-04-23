@@ -20,18 +20,20 @@ public class AuthController {
 
     private final AuthenticationManager manager;
     private final UserRepository userRepository;
+    private final AuthTokenService tokenService;
 
-    public AuthController(AuthenticationManager manager, UserRepository userRepository) {
+    public AuthController(AuthenticationManager manager, UserRepository userRepository, AuthTokenService tokenService) {
         this.manager = manager;
         this.userRepository = userRepository;
+        this.tokenService = tokenService;
     }
 
     @PostMapping("/login")
-    public ResponseEntity<?> login(UserModel.UserModelDTO authenticationDTO){
+    public ResponseEntity<?> login(@RequestBody UserModel.UserModelDTO authenticationDTO){
         UsernamePasswordAuthenticationToken usernamePasswordAuthenticationToken = new UsernamePasswordAuthenticationToken(authenticationDTO.username(), authenticationDTO.password());
         Authentication authenticate = manager.authenticate(usernamePasswordAuthenticationToken);
-
-        return ResponseEntity.ok().build();
+        String token = tokenService.generateToken(((AuthUser) authenticate.getPrincipal()));
+        return ResponseEntity.ok(new AuthLoginResponse(token));
     }
 
     @PostMapping("/register")
@@ -51,4 +53,5 @@ public class AuthController {
         }
     }
 
+    record AuthLoginResponse(String token){}
 }
