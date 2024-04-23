@@ -10,6 +10,7 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.Authentication;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -35,10 +36,10 @@ public class AuthController {
 
     @PostMapping("/register")
     @Transactional
-    public ResponseEntity<?> register(UserModel.UserModelDTO authenticationDTO){
+    public ResponseEntity<?> register(@RequestBody UserModel.UserModelDTO authenticationDTO){
 
         try {
-            if(this.userRepository.findByUsername(authenticationDTO.username()).isEmpty()){
+            if(this.userRepository.findByUsername(authenticationDTO.username()).isPresent()){
                 return ResponseEntity.badRequest().build();
             }
             userRepository.save(
